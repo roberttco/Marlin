@@ -200,6 +200,13 @@ typedef struct { int16_t value, celsius; } temp_entry_t;
 #if ANY_THERMISTOR_IS(1000) // Custom
   const temp_entry_t temptable_1000[] PROGMEM = { { 0, 0 } };
 #endif
+// custom tables from see: https://hydraraptor.blogspot.com/2012/11/more-accurate-thermistor-tables.html
+#if ANY_THERMISTOR_IS(2000) // User-defined table 2
+  #include "thermistor_2000.h"
+#endif
+#if ANY_THERMISTOR_IS(2001) // User-defined table 2
+  #include "thermistor_2001.h"
+#endif
 
 #define _TT_NAME(_N) temptable_ ## _N
 #define TT_NAME(_N) _TT_NAME(_N)
