@@ -102,11 +102,12 @@
 #define FAN1_PIN           P2_03
 #define FAN_PIN            P2_04
 
-//#define HEATER_0_PIN       P2_05
-//#define HEATER_BED_PIN     P2_07
+#define HEATER_0_PIN       P2_05
+#define HEATER_BED_PIN     P2_07
 
-#define HEATER_0_PIN       P2_07
-#define HEATER_BED_PIN     P2_05
+// if not using MOSFET
+//#define HEATER_0_PIN       P2_07
+//#define HEATER_BED_PIN     P2_05
 
 /**
  * Select the serial port on the board to use for communication with the host.
@@ -814,14 +815,15 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 101.32 }
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 101.32 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 3200, 1715.47 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 400, 400, 8, 50 }
+#define DEFAULT_MAX_FEEDRATE          { 600, 600, 24, 50 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1064,11 +1066,11 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 20, 63, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -29, 0, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN 5
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (50*60)
@@ -1115,7 +1117,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
+//#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
 /**
@@ -1241,16 +1243,16 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 210
-#define Y_BED_SIZE 215
+#define X_BED_SIZE 220
+#define Y_BED_SIZE 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -31
 #define Y_MIN_POS -10
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 150
+#define X_MAX_POS 210
+#define Y_MAX_POS 215
+#define Z_MAX_POS 170
 
 /**
  * Software Endstops
@@ -1406,7 +1408,7 @@
  * leveling immediately after G28.
  */
 //#define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
+#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
@@ -1706,7 +1708,7 @@
 // Preheat Constants - Up to 5 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_HOTEND 190
 #define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
