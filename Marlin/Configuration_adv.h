@@ -809,7 +809,7 @@
   // Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
   // If not defined, probe limits will be used.
   // Override with 'M422 S<index> X<pos> Y<pos>'
-  #define Z_STEPPER_ALIGN_XY { {15  , 107 }, { 200,  107 }}
+  #define Z_STEPPER_ALIGN_XY { {35  , 107 }, { 181,  107 }}
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -1825,10 +1825,10 @@
  * the probe to be unable to reach any points.
  */
 #if PROBE_SELECTED && !IS_KINEMATIC
-  //#define PROBING_MARGIN_LEFT PROBING_MARGIN
+  #define PROBING_MARGIN_LEFT 35
   //#define PROBING_MARGIN_RIGHT PROBING_MARGIN
   //#define PROBING_MARGIN_FRONT PROBING_MARGIN
-  //#define PROBING_MARGIN_BACK PROBING_MARGIN
+  #define PROBING_MARGIN_BACK 10
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
@@ -2449,10 +2449,10 @@
   #if AXIS_IS_TMC(Z)
     #define Z_CURRENT       700
     #define Z_CURRENT_HOME  Z_CURRENT
-    #define Z_MICROSTEPS     16
+    #define Z_MICROSTEPS     128
     #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
-    #define Z_INTERPOLATE  true
+    #define Z_INTERPOLATE  false
   #endif
 
   #if AXIS_IS_TMC(Z2)
@@ -2484,10 +2484,10 @@
 
   #if AXIS_IS_TMC(E0)
     #define E0_CURRENT      700
-    #define E0_MICROSTEPS    16
+    #define E0_MICROSTEPS    256
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
-    #define E0_INTERPOLATE true
+    #define E0_INTERPOLATE false
   #endif
 
   #if AXIS_IS_TMC(E1)
