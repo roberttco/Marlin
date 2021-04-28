@@ -135,7 +135,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -524,9 +524,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  29.67
-    #define DEFAULT_Ki   2.09
-    #define DEFAULT_Kd 105.9
+    #define DEFAULT_Kp  16.7127
+    #define DEFAULT_Ki   1.0320
+    #define DEFAULT_Kd  67.3377
   #endif
 #endif // PIDTEMP
 
@@ -811,19 +811,19 @@
 //#define DISTINCT_E_FACTORS
 
 /**
- * Default Axis Steps Per Unit (steps/mm)
+ * Default Axis Steps Per Unit (0/mm)
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 101.32 }
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 3200, 1715.47 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 103.096 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 600, 600, 24, 50 }
+#define DEFAULT_MAX_FEEDRATE          { 400, 400, 24, 50 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1073,7 +1073,8 @@
 #define PROBING_MARGIN 5
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE (50*60)
+//#define XY_PROBE_FEEDRATE (50*60)
+#define XY_PROBE_FEEDRATE (6000)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_FEEDRATE_FAST (4*60)
@@ -1250,7 +1251,7 @@
 #define X_MIN_POS -31
 #define Y_MIN_POS -10
 #define Z_MIN_POS 0
-#define X_MAX_POS 210
+#define X_MAX_POS 208
 #define Y_MAX_POS 215
 #define Z_MAX_POS 170
 
