@@ -211,6 +211,12 @@ typedef struct { raw_adc_t value; celsius_t celsius; } temp_entry_t;
 #if ANY_THERMISTOR_IS(1000) // Custom
   constexpr temp_entry_t temptable_1000[] PROGMEM = { { 0, 0 } };
 #endif
+#if ANY_THERMISTOR_IS(3000) // Derived for heater block - https://hydraraptor.blogspot.com/2012/11/more-accurate-thermistor-tables.html
+  #include "thermistor_3000.h"
+#endif
+#if ANY_THERMISTOR_IS(3001) // Derived for heater bed - https://hydraraptor.blogspot.com/2012/11/more-accurate-thermistor-tables.html
+  #include "thermistor_3001.h"
+#endif
 
 #define _TT_NAME(_N) temptable_ ## _N
 #define TT_NAME(_N) _TT_NAME(_N)
