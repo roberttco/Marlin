@@ -99,11 +99,11 @@
 // connector with the bed connected to an external MOSFET 
 // connected to the E0 connector.
 //
-#define FAN1_PIN           P2_03
-#define FAN_PIN            P2_04
+#define FAN1_PIN           P2_07  // use the HE0 output
+#define FAN_PIN            P2_04  // use the HE1 output
 
-#define HEATER_0_PIN       P2_05
-#define HEATER_BED_PIN     P2_07
+#define HEATER_0_PIN       P2_05  // use the bed heater output (and the onboard bet heater mosfet)
+#define HEATER_BED_PIN     P2_03  // use an attached MOSFET connected to the FAN0 output
 
 // if not using MOSFET
 //#define HEATER_0_PIN       P2_07
@@ -1415,7 +1415,7 @@
 /**
  * Auto-leveling needs preheating
  */
-//#define PREHEAT_BEFORE_LEVELING
+#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP 180   // (°C) Only applies to E0 at this time
   #define LEVELING_BED_TEMP     50
