@@ -816,7 +816,7 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 101.32 }
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 93.45 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 138.89 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1210,7 +1210,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1417,7 +1417,7 @@
  */
 #define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
-  #define LEVELING_NOZZLE_TEMP 180   // (°C) Only applies to E0 at this time
+  //#define LEVELING_NOZZLE_TEMP 180   // (°C) Only applies to E0 at this time
   #define LEVELING_BED_TEMP     50
 #endif
 
