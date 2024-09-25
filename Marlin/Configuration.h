@@ -94,9 +94,9 @@
 
 // @section machine
 
-// 
-// customize for my setup - extruder heater connected to bed 
-// connector with the bed connected to an external MOSFET 
+//
+// customize for my setup - extruder heater connected to bed
+// connector with the bed connected to an external MOSFET
 // connected to the E0 connector.
 //
 #define FAN1_PIN           P2_07  // use the HE0 output
@@ -104,6 +104,9 @@
 
 #define HEATER_0_PIN       P2_05  // use the bed heater output (and the onboard bet heater mosfet)
 #define HEATER_BED_PIN     P2_03  // use an attached MOSFET connected to the FAN0 output
+
+#define Z_STOP_PIN         P0_10
+#define Z_MIN_PROBE_PIN    P1_27
 
 // if not using MOSFET
 //#define HEATER_0_PIN       P2_07
@@ -957,7 +960,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-#define FIX_MOUNTED_PROBE
+// #define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
@@ -974,7 +977,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-//#define BLTOUCH
+#define BLTOUCH
 
 /**
  * Touch-MI Probe by hotends.fr
@@ -1066,15 +1069,15 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 38, 0, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 38, -5, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 5
+#define PROBING_MARGIN 10
 
 // X and Y axis travel speed (mm/min) between probes
 //#define XY_PROBE_FEEDRATE (50*60)
-#define XY_PROBE_FEEDRATE (6000)
+#define XY_PROBE_FEEDRATE (4000)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_FEEDRATE_FAST (4*60)
@@ -1141,7 +1144,7 @@
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT          -1 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
