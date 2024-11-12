@@ -1886,7 +1886,7 @@
 #define Y_MIN_POS -16
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
+#define Y_MAX_POS 231 // Y_BED_SIZE
 #define Z_MAX_POS 170 // changed because of direct drive extruder
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
