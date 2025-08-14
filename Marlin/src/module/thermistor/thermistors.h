@@ -170,8 +170,12 @@ typedef struct { raw_adc_t value; celsius_t celsius; } temp_entry_t;
 #if ANY_THERMISTOR_IS(666)    // beta25 = UNK, R25 = 200K, Pullup = 10kΩ, "Unidentified 200K NTC thermistor (Einstart S)"
   #include "thermistor_666.h"
 #endif
-#if ANY_THERMISTOR_IS(2000)   // "Ultimachine Rambo TDK NTCG104LH104KT1 NTC100K motherboard Thermistor" https://product.tdk.com/en/search/sensor/ntc/chip-ntc-thermistor/info?part_no=NTCG104LH104KT1
+// custom tables from see: https://hydraraptor.blogspot.com/2012/11/more-accurate-thermistor-tables.html
+#if ANY_THERMISTOR_IS(2000)
   #include "thermistor_2000.h"
+#endif
+#if ANY_THERMISTOR_IS(2001)
+  #include "thermistor_2001.h"
 #endif
 
 //
