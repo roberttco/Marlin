@@ -94,10 +94,10 @@ void ControllerFan::update() {
       #if ALL(HAS_HEATED_BED, CONTROLLER_FAN_BED_HEATING)
         || thermalManager.temp_bed.soft_pwm_amount > 0
       #endif
-      #if PIN_EXISTS(CONTROLLER_FAN_MIN_BOARD_)
+      #ifdef CONTROLLER_FAN_MIN_BOARD_TEMP
         || thermalManager.wholeDegBoard() >= CONTROLLER_FAN_MIN_BOARD_TEMP
       #endif
-      #if PIN_EXISTS(CONTROLLER_FAN_MIN_SOC_)
+      #ifdef CONTROLLER_FAN_MIN_SOC_TEMP
         || thermalManager.wholeDegSoc() >= CONTROLLER_FAN_MIN_SOC_TEMP
       #endif
     ) lastComponentOn = ms; //... set time to NOW so the fan will turn on
@@ -134,7 +134,7 @@ void ControllerFan::update() {
     } while (0)
 
     #if ENABLED(FAN_SOFT_PWM)
-      soft_pwm_speed = speed;
+      soft_pwm_speed = speed >> 1;   // Controller Fan Soft PWM uses 0-127 as 0-100% so cut the 0-255 range in half.
     #else
       SET_CONTROLLER_FAN();
       #if PIN_EXISTS(CONTROLLER_FAN2)
