@@ -49,6 +49,10 @@
   #include "../feature/powerloss.h"
 #endif
 
+#if HAS_FILAMENT_RUNOUT_DISTANCE
+  #include "../feature/runout.h"
+#endif
+
 FTMotion ftMotion;
 
 void ft_config_t::prep_for_shaper_change() { ftMotion.prep_for_shaper_change(); }
@@ -263,6 +267,7 @@ void FTMotion::discard_planner_block_protected() {
   if (stepper.current_block) {  // Safeguard in case current_block must not be null (it will
                                 // be null when the "block" is a runout or generated) in order
                                 // to use planner.release_current_block().
+    TERN_(HAS_FILAMENT_RUNOUT_DISTANCE, runout.block_completed(stepper.current_block));
     stepper.current_block = nullptr;
     planner.release_current_block();  // FTM uses release_current_block() instead of discard_current_block(),
                                       // as in block_phase_isr(). This change is to avoid invoking axis_did_move.reset().
@@ -390,15 +395,9 @@ bool FTMotion::plan_next_block() {
     #endif
 
     // Some kinematics track axis motion in RX, RY, RZ
-    #if ANY(CORE_IS_XY, CORE_IS_XZ, MARKFORGED_XY, MARKFORGED_YX)
-      stepper.last_direction_bits.rx = current_block->direction_bits.rx;
-    #endif
-    #if ANY(CORE_IS_XY, CORE_IS_YZ, MARKFORGED_XY, MARKFORGED_YX)
-      stepper.last_direction_bits.ry = current_block->direction_bits.ry;
-    #endif
-    #if ANY(CORE_IS_XZ, CORE_IS_YZ)
-      stepper.last_direction_bits.rz = current_block->direction_bits.rz;
-    #endif
+    TERN_(HAS_REAL_X, stepper.last_direction_bits.rx = current_block->direction_bits.rx);
+    TERN_(HAS_REAL_Y, stepper.last_direction_bits.ry = current_block->direction_bits.ry);
+    TERN_(HAS_REAL_Z, stepper.last_direction_bits.rz = current_block->direction_bits.rz);
 
     // Cache the extruder index / axis for this block
     #if ANY(HAS_MULTI_EXTRUDER, MIXING_EXTRUDER)
@@ -411,7 +410,7 @@ bool FTMotion::plan_next_block() {
     const float totalLength = current_block->millimeters;
 
     startPos = endPos_prevBlock;
-    const xyze_pos_t &moveDist = current_block->distance_mm;
+    const ext_distance_t &moveDist = current_block->ext_distance_mm;
     ratio = moveDist / totalLength;
 
     // Plan the trajectory using the trajectory generator
@@ -422,9 +421,15 @@ bool FTMotion::plan_next_block() {
     TERN_(FTM_HAS_LIN_ADVANCE, use_advance_lead = current_block->use_advance_lead);
 
     axis_move_dir = current_block->direction_bits;
-    #define _SET_MOVE_END(A) moving_axis_flags.A = bool(moveDist.A);
 
+    // Set moving flags for axes that have movement in this block
+    // For CORE kinematics: moveDist.x/.y/.z contain motor distances (a/b/c)
+    // HEAD movement flags need to be inferred: if either motor moves, the head moves
+    #define _SET_MOVE_END(A) moving_axis_flags.A = bool(moveDist.A);
     LOGICAL_AXIS_MAP(_SET_MOVE_END);
+    TERN_(HAS_REAL_X, moving_axis_flags.rx = bool(moveDist.real.x));
+    TERN_(HAS_REAL_Y, moving_axis_flags.ry = bool(moveDist.real.y));
+    TERN_(HAS_REAL_Z, moving_axis_flags.rz = bool(moveDist.real.z));
 
     // If the endstop is already pressed, endstop interrupts won't invoke
     // endstop_triggered and the move will grind. So check here for a
@@ -688,7 +693,7 @@ void FTMotion::fill_stepper_plan_buffer() {
 
   // Start Resonance Testing
   void FTMotion::start_resonance_test() {
-    home_if_needed(); // Ensure known axes first
+    motion.home_if_needed();  // Ensure known axes first
 
     ftm_resonance_test_params_t &p = rtg.rt_params;
 
@@ -697,10 +702,10 @@ void FTMotion::fill_stepper_plan_buffer() {
       p.accel_per_hz = 15.0f;
 
     // Always move to the center of the bed
-    do_blocking_move_to_xy(X_CENTER, Y_CENTER, Z_CLEARANCE_FOR_HOMING);
+    motion.blocking_move_xy(X_CENTER, Y_CENTER, Z_CLEARANCE_FOR_HOMING);
 
     // Start test at the current position with the configured time-step
-    rtg.start(current_position, FTM_TS);
+    rtg.start(motion.position, FTM_TS);
   }
 
 #endif // FTM_RESONANCE_TEST
