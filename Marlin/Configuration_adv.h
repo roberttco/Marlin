@@ -2531,12 +2531,12 @@
  * probe points will follow. This prevents any change from causing
  * the probe to be unable to reach any points.
  */
-#if PROBE_SELECTED && !IS_KINEMATIC
-  #define PROBING_MARGIN_LEFT 35
-  #define PROBING_MARGIN_RIGHT 35
-  #define PROBING_MARGIN_FRONT 35
-  #define PROBING_MARGIN_BACK 35
-#endif
+// #if PROBE_SELECTED && !IS_KINEMATIC
+//   #define PROBING_MARGIN_LEFT 35
+//   #define PROBING_MARGIN_RIGHT 35
+//   #define PROBING_MARGIN_FRONT 35
+//   #define PROBING_MARGIN_BACK 35
+// #endif
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
   // Override the mesh area if the automatic (max) area is too large
