@@ -1722,7 +1722,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 39, -5, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -28, 5, 0 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -1961,18 +1961,22 @@
 //#define W_SAFETY_STOP
 
 // @section geometry
+// See https://manuelmclure.github.io/ConfiguringLeveling.html
 
 // The size of the printable area
-#define X_BED_SIZE 220
-#define Y_BED_SIZE 220
-
+#define X_BED_SIZE 218 // 246
+#define Y_BED_SIZE 200 // 220
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS -10
-#define Y_MIN_POS -10
+
+#define X_MIN_POS -28
+#define Y_MIN_POS -20
+
+#define X_MAX_POS 218 //246
+#define Y_MAX_POS 200 //220
+
 #define Z_MIN_POS 0
-#define X_MAX_POS 240
-#define Y_MAX_POS 210
-#define Z_MAX_POS 170
+#define Z_MAX_POS 115
+
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0
