@@ -1310,7 +1310,7 @@
 #define V_MAX_ENDSTOP_HIT_STATE HIGH
 #define W_MIN_ENDSTOP_HIT_STATE HIGH
 #define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1491,7 +1491,7 @@
  *    - Normally-closed (NC) also connect to GND.
  *    - Normally-open (NO) also connect to 5V.
  */
-//#define Z_MIN_PROBE_PIN -1
+#define Z_MIN_PROBE_PIN P1_27
 
 /**
  * Probe Type
@@ -1511,7 +1511,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
@@ -1533,7 +1533,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-#define BLTOUCH
+//#define BLTOUCH
 
 /**
  * MagLev V4 probe by MDD
@@ -1722,7 +1722,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -28, 5, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -54, 19, 0 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -1964,15 +1964,15 @@
 // See https://manuelmclure.github.io/ConfiguringLeveling.html
 
 // The size of the printable area
-#define X_BED_SIZE 218 // 246
+#define X_BED_SIZE 220 // 246
 #define Y_BED_SIZE 200 // 220
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 
-#define X_MIN_POS -28
+#define X_MIN_POS -7
 #define Y_MIN_POS -20
 
-#define X_MAX_POS 218 //246
-#define Y_MAX_POS 200 //220
+#define X_MAX_POS 220
+#define Y_MAX_POS 200
 
 #define Z_MIN_POS 0
 #define Z_MAX_POS 115
@@ -2275,7 +2275,7 @@
 #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 5
+  #define GRID_MAX_POINTS_X 3
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -2763,7 +2763,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-//#define SDSUPPORT
+#define SDSUPPORT
 
 /**
  * SD CARD: ENABLE CRC
