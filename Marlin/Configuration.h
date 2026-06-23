@@ -1975,7 +1975,7 @@
 #define Y_MAX_POS 200 //220
 
 #define Z_MIN_POS 0
-#define Z_MAX_POS 115
+#define Z_MAX_POS 220
 
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
