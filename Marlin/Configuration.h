@@ -1730,7 +1730,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET {-50,12,-3.9} // <-- changed: (mm) X, Y, Z distance from Nozzle tip to Probe trigger-point
+#define NOZZLE_TO_PROBE_OFFSET {-50,12,-4} // <-- changed: (mm) X, Y, Z distance from Nozzle tip to Probe trigger-point
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -1749,7 +1749,7 @@
 #define XY_PROBE_FEEDRATE    (133*60) // (mm/min)
 
 // Feedrate for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST  (4*60) // (mm/min)
+#define Z_PROBE_FEEDRATE_FAST  400 //(4*60) // (mm/min)
 
 // Feedrate for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2) // (mm/min)
@@ -1971,15 +1971,15 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 267.5 //287.5 // <-- changed
-#define Y_BED_SIZE 271.4 //276.4 // <-- changed
+#define X_BED_SIZE 287.5 // <-- changed
+#define Y_BED_SIZE 276.4 // <-- changed
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS -7 // <-- changed
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS 287.5 // <-- changed
-#define Y_MAX_POS 276.4 // <-- changed
+#define Y_MAX_POS 285.4 // 276.4 // <-- changed
 #define Z_MAX_POS 250 // <-- changed
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2443,8 +2443,8 @@
 #define Z_SAFE_HOMING // <-- changed
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // <-- changed: (mm) X point for Z homing
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // <-- changed: (mm) Y point for Z homing
+  #define Z_SAFE_HOMING_X_POINT X_CENTER
+  #define Z_SAFE_HOMING_Y_POINT ((Y_MAX_POS - Y_MIN_POS) / 2)
   //#define Z_SAFE_HOMING_POINT_ABSOLUTE  // Ignore home offsets (M206) for Z homing position
 #endif
 

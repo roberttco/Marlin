@@ -993,7 +993,7 @@
 
   // Safety: The probe needs time to recognize the command.
   //         Minimum command delay (ms). Enable and increase if needed.
-  //#define BLTOUCH_DELAY 500
+  #define BLTOUCH_DELAY 500
 
   /**
    * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
@@ -1001,7 +1001,7 @@
 
   // Feature: Switch into SW mode after a deploy. It makes the output pulse longer. Can be useful
   //          in special cases, like noisy or filtered input configurations.
-  //#define BLTOUCH_FORCE_SW_MODE
+  #define BLTOUCH_FORCE_SW_MODE
 
   /**
    * Settings for BLTouch Smart 3.0 and 3.1
@@ -2573,10 +2573,10 @@
 // see https://3dprinting.stackexchange.com/questions/8153/how-to-set-z-probe-boundary-limits-in-firmware-when-using-automatic-bed-leveling
 //
 #if PROBE_SELECTED && !IS_KINEMATIC
-  #define PROBING_MARGIN_LEFT PROBING_MARGIN
-  #define PROBING_MARGIN_RIGHT PROBING_MARGIN
-  #define PROBING_MARGIN_FRONT PROBING_MARGIN // (12 + PROBING_MARGIN)
-  #define PROBING_MARGIN_BACK (PROBING_MARGIN + 12) //(Y_BED_SIZE - PROBING_MARGIN)
+  #define PROBING_MARGIN_LEFT 50 + X_MIN_POS
+  #define PROBING_MARGIN_RIGHT 50 + X_MIN_POS
+  #define PROBING_MARGIN_FRONT 10
+  #define PROBING_MARGIN_BACK 68
 #endif
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
